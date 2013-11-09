@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    		    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    	     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+    <mongo:mongo id="mongo" host="37.28.154.80" port="27017"/>
+
+    <beans:bean id="mongotemplate" class="org.springframework.data.mongodb.core.MongoTemplate" >
+        <beans:constructor-arg name="mongo" ref="mongo" />
+        <beans:constructor-arg name="databaseName" value="hdr" />
+    </beans:bean>
+</beans:beans>

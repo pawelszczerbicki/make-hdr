@@ -38,9 +38,9 @@ public class MainWindow  extends JFrame {
 	  //     File f = new File("C:\\FinalProject\\examples\\5\\1.jpg");
 	  //     File f2 = new File("C:\\FinalProject\\examples\\5\\2.jpg");
 	  //     File f3 = new File("C:\\FinalProject\\examples\\5\\3.jpg");
-	       File f = new File("hdr1.jpg");
-	       File f2 = new File("hdr2.jpg");
-	       File f3 = new File("hdr3.jpg");
+	       File f = new File("photo/hdr1.jpg");
+	       File f2 = new File("photo/hdr2.jpg");
+	       File f3 = new File("photo/hdr3.jpg");
 		try {
 			img1 = ImageIO.read(f.toURI().toURL());
 			img2 = ImageIO.read(f2.toURI().toURL());
