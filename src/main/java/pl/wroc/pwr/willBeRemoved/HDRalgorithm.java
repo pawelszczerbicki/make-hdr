@@ -4,9 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 
 public class HDRalgorithm {
@@ -23,23 +23,27 @@ public class HDRalgorithm {
 
 	
 	
-	HDRalgorithm(BufferedImage im1,BufferedImage im2,BufferedImage im3, Float a){
+	public HDRalgorithm(BufferedImage im1, BufferedImage im2, BufferedImage im3, Float a){
 		img1=im1;
 		img2=im2;
 		img3=im3;
 		Alpha=a;
 		Finalimage=HDR(img1,img2,img3);
-		PrintPicture(HDRHDRpictureLabel, HDRFrame, Finalimage);	
-		CreateGradient(img2);
-		img4=CreateFixImage(im1, im3);
-		PrintPicture(GradientpictureLabel,GradientFrame,img4);
-		GradientHDR(img1,img2,img3);
-		float brightness = BrightnessCheck(Finalimage2);
-		PrintPicture(GradientFinalpictureLabel,FinalFrame,Finalimage2);
+		PrintPicture(HDRHDRpictureLabel, HDRFrame, Finalimage, "HDR");
+//		CreateGradient(img2);
+//		img4=CreateFixImage(im1, im3);
+//		//PrintPicture(GradientpictureLabel,GradientFrame,img4, "gradient");
+//		GradientHDR(img1,img2,img3);
+//		float brightness = BrightnessCheck(Finalimage2);
+		//PrintPicture(GradientFinalpictureLabel,FinalFrame,Finalimage2, "gradientFInal");
 		
 		
 	}
-	private void GradientHDR(BufferedImage img1, BufferedImage img2, BufferedImage img3) {
+
+    public HDRalgorithm() {
+    }
+
+    private void GradientHDR(BufferedImage img1, BufferedImage img2, BufferedImage img3) {
 		
 		Finalimage2= new BufferedImage(img2.getWidth(), img2.getHeight(), img2.getType());
 		Finalimage2=img2;
@@ -181,25 +185,72 @@ public class HDRalgorithm {
     	
 
     	 HDRimg = new BufferedImage(im2.getWidth(), im2.getHeight(), im2.getType());    	  
-    	 int w = HDRimg.getWidth(null);
-    	 int h = HDRimg.getHeight(null);
-    	 
-    	 for(int i=0;i<h;i++)
-    		 for (int j=0;j<w;j++)
+    	 int width = HDRimg.getWidth(null);
+    	 int height = HDRimg.getHeight(null);
+        WritableRaster raster = HDRimg.getRaster();
+    	 for(int i=0;i<width;i++)
+    		 for (int j=0;j<height;j++)
     		 {
-    			 Color c1 = new Color(im1.getRGB(j, i));
-    			 Color c2 = new Color(im2.getRGB(j, i));
-    			 Color c3 = new Color(im3.getRGB(j, i));
-    			 int alpha=(c1.getAlpha()+c2.getAlpha()+c3.getAlpha())/3;
-    			 int red = (c1.getRed()+c2.getRed()+c3.getRed())/3;
-    			 int green = (c1.getGreen()+c2.getGreen()+c3.getGreen())/3;
-    			 int blue = (c1.getBlue()+c2.getBlue()+c3.getBlue())/3;
-    			 int pixel = (24 >> alpha) | (red << 16) | (green << 8) | blue;
-    			 HDRimg.setRGB(j, i, pixel);
+                 int[] pixels = raster.getPixel(i, j, (int[]) null);
+
+    			 Color c1 = new Color(im1.getRGB(i, j));
+    			 Color c2 = new Color(im2.getRGB(i, j));
+    			 Color c3 = new Color(im3.getRGB(i, j));
+                 int rmax = Math.max(c1.getRed(), c2.getRed());
+                 int gmax = Math.max(c1.getGreen(), c2.getGreen());
+                 int bmax = Math.max(c1.getBlue(), c2.getBlue());
+
+                 int rmin = Math.min(c1.getRed(), c2.getRed());
+                 int gmin = Math.min(c1.getGreen(), c2.getGreen());
+                 int bmin = Math.min(c1.getBlue(), c2.getBlue());
+                 pixels[0] = (c1.getRed() + c2.getRed() + c3.getRed())/3 < 125 ? Math.max(c3.getRed(), rmax): Math.min(c3.getRed(), rmin);
+                 pixels[1] = (c1.getGreen() + c2.getGreen() + c3.getGreen())/3 < 125 ? Math.max(c3.getGreen(), gmax): Math.min(c3.getGreen(), gmin);
+                 pixels[2] = (c1.getBlue() + c2.getBlue() +c3.getBlue())/3< 125 ? Math.max(c3.getBlue(), bmax): Math.min(c3.getBlue(), bmin);
+//    			 int alpha=(c1.getAlpha()+c2.getAlpha()+c3.getAlpha())/3;
+//    			 int red = (c1.getRed()+c2.getRed()+c3.getRed())/3;
+//    			 int green = (c1.getGreen()+c2.getGreen()+c3.getGreen())/3;
+//    			 int blue = (c1.getBlue()+c2.getBlue()+c3.getBlue())/3;
+//    			 int pixel = (24 >> alpha) | (red << 16) | (green << 8) | blue;
+//
+//    			 HDRimg.setRGB(j, i, pixel);
+                 raster.setPixel(i, j, pixels);
     		 }
     	  
 	return HDRimg;
 	
+    }
+
+    public BufferedImage HDRluminance(BufferedImage im1,BufferedImage im2,BufferedImage im3){
+
+        HDRimg = new BufferedImage(im2.getWidth(), im2.getHeight(), im2.getType());
+        int width = HDRimg.getWidth(null);
+        int height = HDRimg.getHeight(null);
+        WritableRaster raster = HDRimg.getRaster();
+        for(int i=0;i<width;i++)
+            for (int j=0;j<height;j++)
+            {
+                int[] pixels = raster.getPixel(i, j, (int[]) null);
+
+                Color c1 = new Color(im1.getRGB(i, j));
+                Color c2 = new Color(im2.getRGB(i, j));
+                Color c3 = new Color(im3.getRGB(i, j));
+                double redFraction = 0.2126;
+                double greenFraction = 0.7152;
+                double blueFraction = 0.0722;
+
+                double lumination = (redFraction*c2.getRed()) + (greenFraction*c2.getGreen()) + (blueFraction*c2.getBlue());
+
+                double finalLumination = lumination/(lumination+1);
+
+                pixels[0] = new Double(finalLumination/redFraction).intValue();
+                pixels[1] = new Double(finalLumination/greenFraction).intValue();
+                pixels[2] = new Double(finalLumination/blueFraction).intValue();
+
+                raster.setPixel(i, j, pixels);
+            }
+
+        return HDRimg;
+
     }
     
     
@@ -266,10 +317,10 @@ public class HDRalgorithm {
   		 }
     }
     
-    private void PrintPicture(JLabel PictureLabel,JFrame PicFrame, BufferedImage img ){
+    private void PrintPicture(JLabel PictureLabel,JFrame PicFrame, BufferedImage img, String name ){
 
         try {
-            ImageIO.write(img, "jpg", new File(new Random(30).toString()+".jpg"));
+            ImageIO.write(img, "jpg", new File(name+".jpg"));
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
