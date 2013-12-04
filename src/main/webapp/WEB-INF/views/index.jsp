@@ -29,12 +29,12 @@ ${message}
 				</fieldset>    			
 
 				<div id="visible-for-one">
-					<form action="/" class="dropzone" id="dropzone-one"> 							
+					<form action="/upload" class="dropzone" id="dropzone-one" enctype="multipart/form-data">
 						<button type="submit" class="btn btn-block btn-primary">Make HDR</button>
 					</form>							
 				</div>
 				<div id="visible-for-many" style="display: none;">
-					<form action="/" class="dropzone" id="dropzone-many">
+					<form action="/upload" class="dropzone" id="dropzone-many" enctype="multipart/form-data">
 						<button type="submit" class="btn btn-block btn-primary">Make HDR</button>
 					</form>	
 				</div>
@@ -43,17 +43,3 @@ ${message}
 	</div>
 </div>
 
-
-<!-- <form:form method="POST" commandName="file" action="/upload"
-           enctype="multipart/form-data">
-
-    <form:errors path="*" cssClass="errorblock" element="div" />
-
-    Please select image 1 to upload : <input type="file" name="im1" />    <br/>
-    Please select image 2 to upload : <input type="file" name="im2" />    <br/>
-    Please select image 3 to upload : <input type="file" name="im3" />         <br/>
-    <input type="submit" value="upload" />
-		<span><form:errors path="file" cssClass="error" />
-		</span>
-
-</form:form> -->

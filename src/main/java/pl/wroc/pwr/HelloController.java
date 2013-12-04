@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import pl.wroc.pwr.willBeRemoved.HDRalgorithm;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -35,15 +34,16 @@ public class HelloController {
         return "innyindex";
     }
 
-    @RequestMapping(value = "upload", method = RequestMethod.POST, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] getFile(MultipartFile im1, MultipartFile im2,MultipartFile im3) throws IOException {
-        BufferedImage image1 = ImageIO.read(im1.getInputStream());
-        BufferedImage image2 = ImageIO.read(im2.getInputStream());
-        BufferedImage image3 = ImageIO.read(im3.getInputStream());
-        logger.info("iamge width : " + image1.getWidth(null));
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(new HDRalgorithm().HDR(image1, image2, image3), "jpg",os);
-        return os.toByteArray();
+    public String getFile(MultipartFile file) throws IOException {
+        logger.info("received, filename: " + file.getOriginalFilename());
+//        BufferedImage image1 = ImageIO.read(file.getInputStream());
+//        BufferedImage image2 = ImageIO.read(im2.getInputStream());
+//        BufferedImage image3 = ImageIO.read(im3.getInputStream());
+//        logger.info("iamge width : " + image1.getWidth(null));
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        ImageIO.write(new HDRalgorithm().HDR(image1, image2, image3), "jpg",os);
+        return "received";
     }
 }
