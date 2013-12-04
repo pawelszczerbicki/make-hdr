@@ -211,8 +211,8 @@ public class HDRalgorithm {
 //    			 int green = (c1.getGreen()+c2.getGreen()+c3.getGreen())/3;
 //    			 int blue = (c1.getBlue()+c2.getBlue()+c3.getBlue())/3;
 //    			 int pixel = (24 >> alpha) | (red << 16) | (green << 8) | blue;
-//
-//    			 HDRimg.setRGB(j, i, pixel);
+
+//    			 HDRimg.setRGB(i, j, pixel);
                  raster.setPixel(i, j, pixels);
     		 }
     	  
