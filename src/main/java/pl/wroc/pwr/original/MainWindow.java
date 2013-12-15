@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import net.coobird.thumbnailator.Thumbnails;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -37,7 +36,7 @@ public class MainWindow  extends JFrame {
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) throws IOException {
-        return Thumbnails.of(img).size(newW, newH).asBufferedImage();
+        return null; //Thumbnails.of(img).size(newW, newH).asBufferedImage();
     }
 
     private void init(){

@@ -17,30 +17,13 @@ ${message}
 			<h2>Choose option </h2>                  
 			<div class="column">
 				<fieldset class="text-center">
-					
-					<label for="radio-one" class="checkbox">
-						<input id="radio-one" class="icheck" type="radio" name="choose" value="one" checked/>
-						One image
-					</label>
-					<label for="radio-many" class="checkbox">
-						<input id="radio-many" class="icheck" type="radio" name="choose" value="many"/>
-						Many images
-					</label>
 				</fieldset>
                 <a href="/clear" class="btn btn-block btn-primary">Clear</a>
-				<div id="visible-for-one">
-					<form action="/upload" class="dropzone" id="dropzone-one" enctype="multipart/form-data">
-                        <button type="submit">aa</button>
 
-					</form>
-                    <a href="/make-hdr" class="btn btn-block btn-primary">Make HDR</a>
-                </div>
-				<div id="visible-for-many" style="display: none;">
-					<form action="/upload" class="dropzone" id="dropzone-many" enctype="multipart/form-data">
-                        <button type="submit">aa</button>
-					</form>
-                    <a href="/make-hdr" class="btn btn-block btn-primary">Make HDR</a>
-				</div>
+                <form action="/upload" class="dropzone" id="dropzone-many" enctype="multipart/form-data">
+                </form>
+                <a href="/make-hdr" class="btn btn-block btn-primary">Make HDR</a>
+
 			</div> 
 		</div>
 	</div>
