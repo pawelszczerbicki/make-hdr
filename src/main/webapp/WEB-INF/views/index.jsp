@@ -26,17 +26,20 @@ ${message}
 						<input id="radio-many" class="icheck" type="radio" name="choose" value="many"/>
 						Many images
 					</label>
-				</fieldset>    			
-
+				</fieldset>
+                <a href="/clear" class="btn btn-block btn-primary">Clear</a>
 				<div id="visible-for-one">
 					<form action="/upload" class="dropzone" id="dropzone-one" enctype="multipart/form-data">
-						<button type="submit" class="btn btn-block btn-primary">Make HDR</button>
-					</form>							
-				</div>
+                        <button type="submit">aa</button>
+
+					</form>
+                    <a href="/make-hdr" class="btn btn-block btn-primary">Make HDR</a>
+                </div>
 				<div id="visible-for-many" style="display: none;">
 					<form action="/upload" class="dropzone" id="dropzone-many" enctype="multipart/form-data">
-						<button type="submit" class="btn btn-block btn-primary">Make HDR</button>
-					</form>	
+                        <button type="submit">aa</button>
+					</form>
+                    <a href="/make-hdr" class="btn btn-block btn-primary">Make HDR</a>
 				</div>
 			</div> 
 		</div>

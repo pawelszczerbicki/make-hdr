@@ -182,7 +182,7 @@ public class HDRalgorithm {
 	public BufferedImage HDRimg;
     public BufferedImage HDR(BufferedImage im1,BufferedImage im2,BufferedImage im3){
     	
-    	
+    	 //TODO if two of three colors are higher than hals (128) get all colors from one picture
 
     	 HDRimg = new BufferedImage(im2.getWidth(), im2.getHeight(), im2.getType());    	  
     	 int width = HDRimg.getWidth(null);
@@ -203,10 +203,26 @@ public class HDRalgorithm {
                  int rmin = Math.min(c1.getRed(), c2.getRed());
                  int gmin = Math.min(c1.getGreen(), c2.getGreen());
                  int bmin = Math.min(c1.getBlue(), c2.getBlue());
-                 pixels[0] = (c1.getRed() + c2.getRed() + c3.getRed())/3 < 125 ? Math.max(c3.getRed(), rmax): Math.min(c3.getRed(), rmin);
-                 pixels[1] = (c1.getGreen() + c2.getGreen() + c3.getGreen())/3 < 125 ? Math.max(c3.getGreen(), gmax): Math.min(c3.getGreen(), gmin);
-                 pixels[2] = (c1.getBlue() + c2.getBlue() +c3.getBlue())/3< 125 ? Math.max(c3.getBlue(), bmax): Math.min(c3.getBlue(), bmin);
-//    			 int alpha=(c1.getAlpha()+c2.getAlpha()+c3.getAlpha())/3;
+                 int howManyMax = 0;
+                 howManyMax = (c1.getRed() + c2.getRed() + c3.getRed())/3 < 125 ? howManyMax: howManyMax + 1;
+                 howManyMax = (c1.getGreen() + c2.getGreen() + c3.getGreen())/3 < 125 ? howManyMax: howManyMax + 1;
+                 howManyMax = (c1.getBlue() + c2.getBlue() +c3.getBlue())/3< 125 ? howManyMax: howManyMax + 1;
+                 if(howManyMax >=2){
+                     pixels[0] = Math.max(c3.getRed(), rmax);
+                     pixels[1] = Math.max(c3.getGreen(), gmax);
+                     pixels[2] = Math.max(c3.getBlue(), bmax);
+                 } else{
+                     pixels[0] = Math.min(c3.getRed(), rmin);
+                     pixels[1] = Math.min(c3.getGreen(), gmin);
+                     pixels[2] = Math.min(c3.getBlue(), bmin);
+                 }
+
+
+//                 pixels[0] = (c1.getRed() + c2.getRed() + c3.getRed())/3 < 125 ? Math.max(c3.getRed(), rmax): Math.min(c3.getRed(), rmin);
+//                 pixels[1] = (c1.getGreen() + c2.getGreen() + c3.getGreen())/3 < 125 ? Math.max(c3.getGreen(), gmax): Math.min(c3.getGreen(), gmin);
+//                 pixels[2] = (c1.getBlue() + c2.getBlue() +c3.getBlue())/3< 125 ? Math.max(c3.getBlue(), bmax): Math.min(c3.getBlue(), bmin);
+//
+// int alpha=(c1.getAlpha()+c2.getAlpha()+c3.getAlpha())/3;
 //    			 int red = (c1.getRed()+c2.getRed()+c3.getRed())/3;
 //    			 int green = (c1.getGreen()+c2.getGreen()+c3.getGreen())/3;
 //    			 int blue = (c1.getBlue()+c2.getBlue()+c3.getBlue())/3;

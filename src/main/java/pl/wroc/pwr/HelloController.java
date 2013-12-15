@@ -1,6 +1,7 @@
 package pl.wroc.pwr;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,17 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import pl.wroc.pwr.service.ImageService;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Controller
 @RequestMapping("/")
 public class HelloController {
 
     private final Logger logger = Logger.getLogger(getClass());
+
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(Model model) {
@@ -38,12 +45,25 @@ public class HelloController {
     @ResponseBody
     public String getFile(MultipartFile file) throws IOException {
         logger.info("received, filename: " + file.getOriginalFilename());
-//        BufferedImage image1 = ImageIO.read(file.getInputStream());
-//        BufferedImage image2 = ImageIO.read(im2.getInputStream());
-//        BufferedImage image3 = ImageIO.read(im3.getInputStream());
-//        logger.info("iamge width : " + image1.getWidth(null));
-//        ByteArrayOutputStream os = new ByteArrayOutputStream();
-//        ImageIO.write(new HDRalgorithm().HDR(image1, image2, image3), "jpg",os);
+        imageService.addImage(ImageIO.read(file.getInputStream()));
         return "received";
     }
+
+    @RequestMapping(value = "make-hdr", method = RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] makeHdr() throws IOException {
+        logger.info("Making hdr");
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(imageService.makeHdr(), "jpg",os);
+        return os.toByteArray();
+    }
+
+    @RequestMapping(value = "clear", method = RequestMethod.GET)
+    @ResponseBody
+    public String clear() throws IOException {
+        logger.info("Clear photos");
+        imageService.clear();
+        return "ok";
+    }
+
 }
