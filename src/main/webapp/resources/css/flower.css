@@ -52,13 +52,3 @@
 	position: relative;
 	top: 3px;
 }
-
-.dz-default {
-	margin-top: 10px;
-	border: 1px solid #000;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px; 
-	border-radius: 4px; 
-	text-align: center;
-	cursor: pointer;
-}

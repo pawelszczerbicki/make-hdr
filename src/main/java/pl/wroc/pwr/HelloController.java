@@ -30,14 +30,12 @@ public class HelloController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(Model model) {
         logger.info("index page");
-        model.addAttribute("message", "Hello world!");
         return "index";
     }
 
     @RequestMapping(value = "anotherindex", method = RequestMethod.GET)
     public String differentIndex(Model model) {
         logger.info("inny index");
-        model.addAttribute("message", "Hello world! - Inny index!!");
         return "innyindex";
     }
 
