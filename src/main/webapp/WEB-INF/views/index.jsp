@@ -14,6 +14,16 @@
 		</div>
 		<div class="col-md-6">
 			<h2>Make HDR image</h2>
+            <div class="text-center">
+                <label for="radio-one" class="checkbox">
+                    <input id="radio-one" class="icheck" type="radio" name="choose" value="one" checked/>
+                    Algorithm 1
+                </label>
+                <label for="radio-two" class="checkbox">
+                    <input id="radio-two" class="icheck" type="radio" name="choose" value="two"/>
+                    Algorithm 2
+                </label>
+            </div>
 			<div class="column">
 				<fieldset class="text-center">
 				</fieldset>
