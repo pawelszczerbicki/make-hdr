@@ -25,8 +25,13 @@ public class ImageService {
         images.add(i);
     }
 
-    public BufferedImage makeHdr(){
-        return hdrService.hdr(images.get(0), images.get(1), images.get(2));
+    public BufferedImage makeHdr(Integer algorithm){
+        if(algorithm == 1){
+            return hdrService.hdrSimpleAverage(images.get(0), images.get(1), images.get(2));
+        }
+        else{
+            return hdrService.hdrCuriousAverage(images.get(0), images.get(1), images.get(2));
+        }
     }
 
     public void clear() {

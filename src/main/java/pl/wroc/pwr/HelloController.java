@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import pl.wroc.pwr.service.ImageService;
@@ -30,6 +31,7 @@ public class HelloController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(Model model) {
         logger.info("index page");
+        imageService.clear();
         return "index";
     }
 
@@ -49,10 +51,10 @@ public class HelloController {
 
     @RequestMapping(value = "make-hdr", method = RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public byte[] makeHdr() throws IOException {
+    public byte[] makeHdr(@RequestParam Integer algorithm) throws IOException {
         logger.info("Making hdr");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(imageService.makeHdr(), "jpg",os);
+        ImageIO.write(imageService.makeHdr(algorithm), "jpg",os);
         return os.toByteArray();
     }
 
