@@ -1,5 +1,9 @@
 jQuery(function($){
 
+    $('#btn-makehdr').click( function(e){
+        $('#result-hdr').html('<img src="/make-hdr" class="result-hdr" />')
+    });
+
 	Dropzone.options.dropzoneMany = {
 		paramName: "file", // The name that will be used to transfer the file
 		maxFilesize: 10, // MB

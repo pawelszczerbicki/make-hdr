@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>smart-home</title>
+    <title>HDR</title>
     <tiles:insertAttribute name="header"/>
 </head>
 <body>

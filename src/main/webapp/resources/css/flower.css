@@ -52,3 +52,8 @@
 	position: relative;
 	top: 3px;
 }
+
+.result-hdr {
+    padding: 5px 0px;
+    max-width: 100%;
+}
