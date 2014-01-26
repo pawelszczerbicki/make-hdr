@@ -23,6 +23,10 @@
                     <input id="radio-two" class="icheck" type="radio" name="choose" value="two"/>
                     Algorithm 2
                 </label>
+                <label for="radio-three" class="checkbox">
+                    <input id="radio-three" class="icheck" type="radio" name="choose" value="three"/>
+                    Algorithm 3
+                </label>
             </div>
 			<div class="column">
 				<fieldset class="text-center">

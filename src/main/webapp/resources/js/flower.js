@@ -6,14 +6,13 @@ jQuery(function($){
     });
     $('.icheck').on('ifChecked', function(e){
         if($(this).val() === 'one') {
-            $('#visible-for-two').hide();
-            $('#visible-for-one').show();
             algorithm = 1;
         }
         else if ($(this).val() === 'two') {
-            $('#visible-for-one').hide();
-            $('#visible-for-two').show();
             algorithm = 2;
+        }
+        else if ($(this).val() === 'three') {
+            algorithm = 3;
         }
     });
 
