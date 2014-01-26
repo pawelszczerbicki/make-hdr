@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,11 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.wroc.pwr.service.ImageService;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -29,16 +25,9 @@ public class HelloController {
     private ImageService imageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome(Model model) {
-        logger.info("index page");
+    public String printWelcome() {
         imageService.clear();
         return "index";
-    }
-
-    @RequestMapping(value = "anotherindex", method = RequestMethod.GET)
-    public String differentIndex(Model model) {
-        logger.info("inny index");
-        return "innyindex";
     }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)

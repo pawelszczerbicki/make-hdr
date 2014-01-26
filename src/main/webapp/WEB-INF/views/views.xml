@@ -4,9 +4,4 @@
 <tiles-definitions>
 
     <definition extends="main" name="index" />
-
-    <definition extends="main" name="innyindex">
-        <put-attribute name="body" value="/WEB-INF/views/jakisinnywidok/innyindex.jsp" />
-    </definition>
-
 </tiles-definitions>
