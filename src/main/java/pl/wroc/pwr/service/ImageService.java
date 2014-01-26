@@ -26,10 +26,12 @@ public class ImageService {
     }
 
     public BufferedImage makeHdr(Integer algorithm){
-        if(algorithm == 1){
+        if(algorithm.equals(1)){
             return hdrService.hdrSimpleAverage(images.get(0), images.get(1), images.get(2));
         }
-        else{
+        else if(algorithm.equals(2)){
+            return hdrService.hdrCuriousAverage(images.get(0), images.get(1), images.get(2));
+        }else {
             return hdrService.hdrCuriousAverage(images.get(0), images.get(1), images.get(2));
         }
     }
