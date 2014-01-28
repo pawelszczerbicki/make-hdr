@@ -36,9 +36,15 @@
         width: 90%;/* your width */
     }
 
-    #input-images {
-        max-height: 600px;
+    #input-images,
+    #output-images {
+        max-height: 320px;
         overflow-y: auto;
+    }
+
+    #input-images > img,
+    #output-images > img {
+        max-width: 100%;
     }
 
 
