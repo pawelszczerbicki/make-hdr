@@ -38,12 +38,20 @@ public class HelloController {
         return "received";
     }
 
-    @RequestMapping(value = "make-hdr", method = RequestMethod.GET,  produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "make-hdr", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public byte[] makeHdr(@RequestParam Integer algorithm) throws IOException {
+    public byte[] makeHdr(@RequestParam Integer algorithm, @RequestParam(required = false) Double alpha) throws IOException {
         logger.info("Making hdr");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(imageService.makeHdr(algorithm), "jpg",os);
+        ImageIO.write(imageService.makeHdr(algorithm, alpha == 0 || alpha == null ? null : alpha), "jpg", os);
+        return os.toByteArray();
+    }
+
+    @RequestMapping(value = "uploaded-photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getPhoto(@RequestParam Integer photo) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(imageService.get(photo), "jpg", os);
         return os.toByteArray();
     }
 

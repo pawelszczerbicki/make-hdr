@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ImageService {
 
+    private final static Double DEFAULT_ALPHA_PARAM = 0.2d;
+
     @Autowired
     private HdrService hdrService;
 
@@ -25,18 +28,21 @@ public class ImageService {
         images.add(i);
     }
 
-    public BufferedImage makeHdr(Integer algorithm){
-        if(algorithm.equals(1)){
-            return hdrService.hdrSimpleAverage(images.get(0), images.get(1), images.get(2));
-        }
-        else if(algorithm.equals(2)){
-            return hdrService.hdrCuriousAverage(images.get(0), images.get(1), images.get(2));
-        }else {
-            return hdrService.hdrCuriousAverage(images.get(0), images.get(1), images.get(2));
+    public BufferedImage makeHdr(Integer algorithm, Double alphaParam) {
+        if (algorithm.equals(1)) {
+            return hdrService.averageExtended(images);
+        } else if (algorithm.equals(2)) {
+            return hdrService.luminanceAlgorithm(images, alphaParam == null ? DEFAULT_ALPHA_PARAM : alphaParam);
+        } else {
+            return hdrService.thirdAlgorithm(images);
         }
     }
 
     public void clear() {
         images.clear();
+    }
+
+    public RenderedImage get(Integer photo) {
+        return images.get(photo);
     }
 }
