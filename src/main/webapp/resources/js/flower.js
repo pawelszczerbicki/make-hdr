@@ -21,8 +21,8 @@ jQuery(function($){
 
         $.get('/amount', function(result){
             $('#input-images').empty();
-            for(var i = 0; i < praseInt(result); i++){
-                $('#input-images').append($('<img>', { src: '/uplaoded-photo?photo=' + i}));
+            for(var i = 0; i < parseInt(result); i++){
+                $('#input-images').append($('<img>', { src: '/uploaded-photo?photo=' + i}));
             }
             $('#output-images').empty().append($('<img>', { src: '/make-hdr?algorithm=' + algorithm }));
             $('#modal-result').modal();
