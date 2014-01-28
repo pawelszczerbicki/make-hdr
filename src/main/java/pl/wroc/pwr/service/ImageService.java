@@ -45,4 +45,8 @@ public class ImageService {
     public RenderedImage get(Integer photo) {
         return images.get(photo);
     }
+
+    public Integer getAmount() {
+        return images.size();
+    }
 }

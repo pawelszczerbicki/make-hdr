@@ -55,6 +55,12 @@ public class HelloController {
         return os.toByteArray();
     }
 
+    @RequestMapping("amount")
+    @ResponseBody
+    public Integer getAmount(){
+        return imageService.getAmount();
+    }
+
     @RequestMapping(value = "clear", method = RequestMethod.GET)
     @ResponseBody
     public String clear() throws IOException {
