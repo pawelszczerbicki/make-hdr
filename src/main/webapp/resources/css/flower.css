@@ -1,4 +1,5 @@
 @media (min-width: 979px){
+
 	body {
 		background: url(../img/bg.jpg) no-repeat center center fixed; 
 	  	-webkit-background-size: cover;
@@ -29,6 +30,18 @@
 	.main h2 {
 		text-align: center;
 	}
+
+    #modal-result .modal-dialog
+    {
+        width: 90%;/* your width */
+    }
+
+    #input-images {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+
 }
 
 .checkbox,

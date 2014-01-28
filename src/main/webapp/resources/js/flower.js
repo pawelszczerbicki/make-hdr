@@ -18,7 +18,16 @@ jQuery(function($){
 
 
     $('#btn-makehdr').click( function(e){
-        $('#result-hdr').html('<img src="/make-hdr?algorithm=' + algorithm + '" class="result-hdr" />')
+
+        $.get('/amount', function(result){
+            $('#input-images').empty();
+            for(var i = 0; i < praseInt(result); i++){
+                $('#input-images').append($('<img>', { src: '/uplaoded-photo?photo=' + i}));
+            }
+            $('#output-images').empty().append($('<img>', { src: '/make-hdr?algorithm=' + algorithm }));
+            $('#modal-result').modal();
+        });
+
     });
 
 	Dropzone.options.dropzoneMany = {
