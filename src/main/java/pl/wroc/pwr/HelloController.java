@@ -24,7 +24,7 @@ public class HelloController {
     @Autowired
     private ImageService imageService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping
     public String printWelcome() {
         imageService.clear();
         return "index";
@@ -38,7 +38,7 @@ public class HelloController {
         return "received";
     }
 
-    @RequestMapping(value = "make-hdr", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "make-hdr", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] makeHdr(@RequestParam Integer algorithm, @RequestParam(required = false) Double alpha) throws IOException {
         logger.info("Making hdr");
@@ -47,7 +47,7 @@ public class HelloController {
         return os.toByteArray();
     }
 
-    @RequestMapping(value = "uploaded-photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "uploaded-photo", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getPhoto(@RequestParam Integer photo) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -55,10 +55,10 @@ public class HelloController {
         return os.toByteArray();
     }
 
-    @RequestMapping("amount")
+    @RequestMapping(value = "amount")
     @ResponseBody
-    public Integer getAmount(){
-        return imageService.getAmount();
+    public String getAmount(){
+        return imageService.getAmount().toString();
     }
 
     @RequestMapping(value = "clear", method = RequestMethod.GET)
