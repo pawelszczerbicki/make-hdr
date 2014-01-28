@@ -32,7 +32,7 @@ public class ImageService {
         if (algorithm.equals(1)) {
             return hdrService.averageExtended(images);
         } else if (algorithm.equals(2)) {
-            return hdrService.luminanceAlgorithm(images, alphaParam == null ? DEFAULT_ALPHA_PARAM : alphaParam);
+            return hdrService.luminanceAlgorithm(images, alphaParam == null || alphaParam.equals(0) ? DEFAULT_ALPHA_PARAM : alphaParam);
         } else {
             return hdrService.thirdAlgorithm(images);
         }

@@ -43,7 +43,7 @@ public class HelloController {
     public byte[] makeHdr(@RequestParam Integer algorithm, @RequestParam(required = false) Double alpha) throws IOException {
         logger.info("Making hdr");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(imageService.makeHdr(algorithm, alpha == 0 || alpha == null ? null : alpha), "jpg", os);
+        ImageIO.write(imageService.makeHdr(algorithm, alpha), "jpg", os);
         return os.toByteArray();
     }
 

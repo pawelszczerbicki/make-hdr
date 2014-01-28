@@ -57,7 +57,7 @@ public class HdrService {
         long[][] vValue = new long[width][height];
         long[][] uValue = new long[width][height];
         long[][] alphas = new long[width][height];
-        long lWhite = Long.MAX_VALUE;
+        long lWhite = 0;
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++) {
                 Long alphaFactor = 0l;
@@ -80,7 +80,7 @@ public class HdrService {
                 uValue[i][j] = new Double(-0.148 * red - 0.291 * green + 0.439 * blue).longValue() + new Double(128 * multiplier).longValue();
                 Long luminance = new Float(0.257f * red).longValue() + new Float(0.504f * green).longValue() + new Float(0.098f * blue).longValue() + new Double(16 * multiplier).longValue();
                 luminances[i][j] = luminance;
-                lWhite = luminance < lWhite ? luminance : lWhite;
+                lWhite = luminance > lWhite ? luminance : lWhite;
                 logarithm = logarithm + new Double(Math.log(luminance + 0.001)).longValue();
             }
         long luminanceWAverage = new Double(Math.exp(logarithm / (width * height))).longValue();
